@@ -1,8 +1,11 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -53,5 +56,22 @@ public class Main {
         } catch (InputMismatchException e){
             System.out.println("Incorrect format of input. Try to enter the number.");
         }
+
+        /*Display Unique Competitors Names for a given competition*/
+        ArrayList<String> Competitors = new ArrayList<>();
+        String value = "soccer";
+
+        for (Event event : events.getEvents()){
+            if(event.getCompetition_name().equals(value)){
+                Competitors.add(event.getCompetitors().get(0).getName());
+                Competitors.add(event.getCompetitors().get(1).getName());
+            }}
+        List<String> UniqueCompetitors = Competitors.stream().sorted().distinct().collect(Collectors.toList());
+        System.out.println("Unique Competitors Names:");
+        for (int j=0; j < UniqueCompetitors.size(); j++){
+            System.out.println(UniqueCompetitors.get(j));
+        }
     }
+
+
 }
