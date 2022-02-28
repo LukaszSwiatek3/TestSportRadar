@@ -8,8 +8,6 @@ public class Competitor {
     private String qualifier;
     private String gender;
 
-    public Competitor(){}
-
     public Competitor(String id, String name, String country, String country_code, String abbreviation, String qualifier, String gender) {
         this.id = id;
         this.name = name;
