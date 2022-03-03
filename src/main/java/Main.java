@@ -53,14 +53,14 @@ public class Main {
             System.out.println("Incorrect format of input. Try to enter the number.");
         }
 
-        System.out.println(events.getEvents().get(0).getCompetition_name());
+        System.out.println(events.getEvents().get(0).getCompetitionName());
 
         /*Display Unique Competitors Names for a given competition*/
         ArrayList<String> Competitors = new ArrayList<String>();
         String value = "UEFA Champions League";
 
         for (Event event : events.getEvents()) {
-            if (event.getCompetition_name().equals(value)) ;
+            if (event.getCompetitionName().equals(value)) ;
             {
                 Competitors.add(event.getCompetitors().get(0).getName());
                 Competitors.add(event.getCompetitors().get(1).getName());

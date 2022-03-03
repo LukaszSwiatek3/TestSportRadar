@@ -8,19 +8,6 @@ public class Competitor {
     private String qualifier;
     private String gender;
 
-    public Competitor() {
-    }
-
-    public Competitor(String id, String name, String country, String country_code, String abbreviation, String qualifier, String gender) {
-        this.id = id;
-        this.name = name;
-        this.country = country;
-        this.country_code = country_code;
-        this.abbreviation = abbreviation;
-        this.qualifier = qualifier;
-        this.gender = gender;
-    }
-
     public String getId() {
         return id;
     }
@@ -49,44 +36,4 @@ public class Competitor {
         return gender;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public void setCountry_code(String country_code) {
-        this.country_code = country_code;
-    }
-
-    public void setAbbreviation(String abbreviation) {
-        this.abbreviation = abbreviation;
-    }
-
-    public void setQualifier(String qualifier) {
-        this.qualifier = qualifier;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    @Override
-    public String toString() {
-        return "Competitor{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", country='" + country + '\'' +
-                ", country_code='" + country_code + '\'' +
-                ", abbreviation='" + abbreviation + '\'' +
-                ", qualifier='" + qualifier + '\'' +
-                ", gender='" + gender + '\'' +
-                '}';
-    }
 }
