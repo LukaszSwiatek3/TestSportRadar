@@ -8,7 +8,8 @@ public class Venue {
     private String map_coordinates;
     private String country_code;
 
-    public Venue() {}
+    public Venue() {
+    }
 
     public Venue(String name, Integer capacity, String city_name, String country_name, String map_coordinates, String country_code) {
 

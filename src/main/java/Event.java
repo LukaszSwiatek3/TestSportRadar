@@ -19,7 +19,8 @@ public class Event {
     private Double probability_draw;
     private Double probability_away_team_winner;
 
-    public Event(){}
+    public Event() {
+    }
 
     public Event(String sport_event_id, String start_date, String sport_name, String competition_name, String competition_id, String season_name, Venue venue, List<Competitor> competitors, Double probability_home_team_winner, Double probability_draw, Double probability_away_team_winner) {
         this.sport_event_id = sport_event_id;
@@ -41,39 +42,48 @@ public class Event {
 
         if (probability_draw > highestPercentage) {
             highestPercentage = probability_draw;
-        } if (probability_away_team_winner > highestPercentage) {
+        }
+        if (probability_away_team_winner > highestPercentage) {
             highestPercentage = probability_away_team_winner;
         }
         /* Finding which result it refer to */
         /* Handles exceptions when two or more values are the same */
-        if (abs(highestPercentage - probability_home_team_winner) < 0.01) {return "The highest probability (" + probability_home_team_winner + ") indicates that " + competitors.get(0).getName() +" will win.";}
-        if (abs(highestPercentage - probability_draw) < 0.01) {return "The highest probability (" + probability_draw + ") indicates that teams will draw.";}
-        if (abs(highestPercentage - probability_away_team_winner) < 0.01) {return "The highest probability (" + probability_away_team_winner + ") indicates that " + competitors.get(1).getName() + " will win.";}
-        else return "There is an error.";
+        if (abs(highestPercentage - probability_home_team_winner) < 0.01) {
+            return "The highest probability (" + probability_home_team_winner + ") indicates that " + competitors.get(0).getName() + " will win.";
+        }
+        if (abs(highestPercentage - probability_draw) < 0.01) {
+            return "The highest probability (" + probability_draw + ") indicates that teams will draw.";
+        }
+        if (abs(highestPercentage - probability_away_team_winner) < 0.01) {
+            return "The highest probability (" + probability_away_team_winner + ") indicates that " + competitors.get(1).getName() + " will win.";
+        } else {
+            return "There is an error.";
+        }
     }
 
-    public LocalTime localTime(){
+    public LocalTime localTime() {
         OffsetDateTime offset = OffsetDateTime.parse(start_date);
         LocalTime localTime = offset.toLocalTime();
         return localTime;
     }
 
-    public LocalDate localDate(){
+    public LocalDate localDate() {
         OffsetDateTime offset = OffsetDateTime.parse(start_date);
-        LocalDate localDate= offset.toLocalDate();
+        LocalDate localDate = offset.toLocalDate();
         return localDate;
     }
 
-    public String TimeChange(){
+    public String TimeChange() {
         String date = localDate().toString();
         String time = localTime().toString();
         String TimeChange = date + " " + time;
         return TimeChange;
     }
 
-    public String VenueNameIfNotNull(){
-        if(getVenue()!= null && !"".equals(getVenue())){return getVenue().getName();}
-        else return "Empty.";
+    public String VenueNameIfNotNull() {
+        if (getVenue() != null && !"".equals(getVenue())) {
+            return getVenue().getName();
+        } else return "Empty.";
     }
 
     public String getSport_event_id() {
@@ -167,18 +177,6 @@ public class Event {
 
     @Override
     public String toString() {
-        return "Event{" +
-                "sport_event_id='" + sport_event_id + '\'' +
-                ", start_date='" + start_date + '\'' +
-                ", sport_name='" + sport_name + '\'' +
-                ", competition_name='" + competition_name + '\'' +
-                ", competition_id='" + competition_id + '\'' +
-                ", season_name='" + season_name + '\'' +
-                ", venue=" + venue +
-                ", competitors=" + competitors +
-                ", probability_home_team_winner=" + probability_home_team_winner +
-                ", probability_draw=" + probability_draw +
-                ", probability_away_team_winner=" + probability_away_team_winner +
-                '}';
+        return "Event{" + "sport_event_id='" + sport_event_id + '\'' + ", start_date='" + start_date + '\'' + ", sport_name='" + sport_name + '\'' + ", competition_name='" + competition_name + '\'' + ", competition_id='" + competition_id + '\'' + ", season_name='" + season_name + '\'' + ", venue=" + venue + ", competitors=" + competitors + ", probability_home_team_winner=" + probability_home_team_winner + ", probability_draw=" + probability_draw + ", probability_away_team_winner=" + probability_away_team_winner + '}';
     }
 }
