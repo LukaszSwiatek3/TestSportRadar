@@ -1,9 +1,14 @@
+package DTO;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Competitor {
 
     private String id;
     private String name;
     private String country;
-    private String country_code;
+    @JsonProperty("country_code")
+    private String countryCode;
     private String abbreviation;
     private String qualifier;
     private String gender;
@@ -21,7 +26,7 @@ public class Competitor {
     }
 
     public String getCountry_code() {
-        return country_code;
+        return countryCode;
     }
 
     public String getAbbreviation() {

@@ -1,3 +1,5 @@
+package DTO;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDate;
@@ -38,15 +40,15 @@ public class Event {
         if (probabilityAwayTeamWinner > highestPercentage) {
             highestPercentage = probabilityAwayTeamWinner;
         }
-        /* Finding which result it refer to */
+        /* Finding which result it refers to */
         /* Handles exceptions when two or more values are the same */
-        if (highestPercentage == probabilityHomeTeamWinner) {
+        if (highestPercentage.equals(probabilityHomeTeamWinner)) {
             return "The highest probability (" + probabilityHomeTeamWinner + ") indicates that " + competitors.get(0).getName() + " will win.";
         }
-        if (highestPercentage == probabilityDraw) {
+        if (highestPercentage.equals(probabilityDraw)) {
             return "The highest probability (" + probabilityDraw + ") indicates that teams will draw.";
         }
-        if (highestPercentage == probabilityAwayTeamWinner) {
+        if (highestPercentage.equals(probabilityAwayTeamWinner)) {
             return "The highest probability (" + probabilityAwayTeamWinner + ") indicates that " + competitors.get(1).getName() + " will win.";
         } else {
             return "There is an error.";
@@ -55,21 +57,18 @@ public class Event {
 
     public LocalTime localTime() {
         OffsetDateTime offset = OffsetDateTime.parse(startDate);
-        LocalTime localTime = offset.toLocalTime();
-        return localTime;
+        return offset.toLocalTime();
     }
 
     public LocalDate localDate() {
         OffsetDateTime offset = OffsetDateTime.parse(startDate);
-        LocalDate localDate = offset.toLocalDate();
-        return localDate;
+        return offset.toLocalDate();
     }
 
     public String TimeChange() {
         String date = localDate().toString();
         String time = localTime().toString();
-        String TimeChange = date + " " + time;
-        return TimeChange;
+        return date + " " + time;
     }
 
     public String VenueNameIfNotNull() {
