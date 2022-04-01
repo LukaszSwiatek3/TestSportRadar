@@ -1,6 +1,5 @@
-package DTO;
+package dto;
 
-import DTO.Event;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;

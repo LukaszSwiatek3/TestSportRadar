@@ -1,4 +1,4 @@
-package DTO;
+package dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -29,26 +29,27 @@ public class Event {
     @JsonProperty("probability_away_team_winner")
     private Double probabilityAwayTeamWinner;
 
+    /* Function returning the highest probability of match result */
+    public double getHighestProbability(){
+        double firstComparison = Math.max(probabilityHomeTeamWinner, probabilityDraw);
+        return Math.max(firstComparison, probabilityAwayTeamWinner);
+    }
 
-    public String displayMostProbableMatchResult() {
+    /* Function returning the highest probability of match result with description as a string */
+    public String displayMostProbableMatchesResult() {
 
-        Double highestPercentage = probabilityHomeTeamWinner;
+        Double firstComparison = Math.max(probabilityHomeTeamWinner, probabilityDraw);
+        Double secondComparison = Math.max(firstComparison, probabilityAwayTeamWinner);
 
-        if (probabilityDraw > highestPercentage) {
-            highestPercentage = probabilityDraw;
-        }
-        if (probabilityAwayTeamWinner > highestPercentage) {
-            highestPercentage = probabilityAwayTeamWinner;
-        }
         /* Finding which result it refers to */
         /* Handles exceptions when two or more values are the same */
-        if (highestPercentage.equals(probabilityHomeTeamWinner)) {
+        if (secondComparison.equals(probabilityHomeTeamWinner)) {
             return "The highest probability (" + probabilityHomeTeamWinner + ") indicates that " + competitors.get(0).getName() + " will win.";
         }
-        if (highestPercentage.equals(probabilityDraw)) {
+        if (secondComparison.equals(probabilityDraw)) {
             return "The highest probability (" + probabilityDraw + ") indicates that teams will draw.";
         }
-        if (highestPercentage.equals(probabilityAwayTeamWinner)) {
+        if (secondComparison.equals(probabilityAwayTeamWinner)) {
             return "The highest probability (" + probabilityAwayTeamWinner + ") indicates that " + competitors.get(1).getName() + " will win.";
         } else {
             return "There is an error.";

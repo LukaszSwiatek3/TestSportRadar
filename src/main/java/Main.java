@@ -2,24 +2,21 @@ import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import DTO.Event;
-import DTO.Events;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import dto.Event;
+import dto.Events;
+import dto.JsonInput;
 
 
 public class Main {
 
     public static void main(String[] args) throws IOException {
 
-        /* Mapping json file */
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
-        BufferedReader br = new BufferedReader(new FileReader("C://Users/L/SportRadar/testsportradar/src/main/resources/data.json"));
-        Events events = objectMapper.readValue(br, Events.class);
+        JsonInput jsonInput = new JsonInput();
+        Events events = jsonInput.parseFromJson("C://Users/L/SportRadar/testsportradar/src/main/resources/data.json");
+
+        /* Sorting events by the biggest probability */
+        Comparator<Event> compareByProbability = Comparator.comparing(event1 -> event1.getHighestProbability());
+        Collections.sort(events.getEvents(), compareByProbability.reversed());
 
         /* User choose how many matches he wants to print */
         try {
@@ -36,15 +33,15 @@ public class Main {
             }
             if (0 < x && x < events.getEvents().size()) {
                 int i = 0;
-                for (Event event : events.getEvents()) {
 
+                for(Event event : events.getEvents()){
                     /* Display selected data*/
                     System.out.println("Start date: " + event.TimeChange());
                     System.out.println(event.getCompetitors().get(0).getName() + " (" + event.getCompetitors().get(0).getCountry() + ") vs " + event.getCompetitors().get(1).getName() + " (" + event.getCompetitors().get(1).getCountry() + ")");
                     System.out.println("Venue: " + event.VenueNameIfNotNull());
-                    System.out.println(event.displayMostProbableMatchResult() + "\n");
+                    System.out.println(event.displayMostProbableMatchesResult() + "\n");
 
-                    /* Function response for breaking the loop */
+                    /* Function response for breaking the loop for x*/
                     if (i == x - 1) {
                         break;
                     }
@@ -55,15 +52,13 @@ public class Main {
             System.out.println("Incorrect format of input. Try to enter the number. \n");
         }
 
-        /*Display Unique Competitors Names for a given competition*/
+        /* Display Unique Competitors Names for a given competition*/
         ArrayList<String> Competitors = new ArrayList<>();
         String value = "UEFA Champions League";
-
         System.out.println(value);
 
         for (Event event : events.getEvents()) {
-            if (event.getCompetitionName().equals(value))
-            {
+            if (event.getCompetitionName().equals(value)) {
                 Competitors.add(event.getCompetitors().get(0).getName());
                 Competitors.add(event.getCompetitors().get(1).getName());
             }
@@ -71,9 +66,7 @@ public class Main {
 
         List<String> UniqueCompetitors = Competitors.stream().sorted().distinct().collect(Collectors.toList());
         System.out.println("Unique Competitors Names:");
-        for (String competitor : UniqueCompetitors) {
-            System.out.println(competitor);
-        }
+        UniqueCompetitors.forEach(System.out::println);
     }
 
 }
